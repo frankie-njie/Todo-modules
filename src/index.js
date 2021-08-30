@@ -14,17 +14,24 @@ const addProjectsBtn = document.getElementById("addProject");
 //button event listeners
 addTaskBtn.addEventListener("click", createTaskForm);
 addProjectsBtn.addEventListener("click", createProjectForm);
+// let form = document.getElementsByClassName('form');
+// form[0].onclick = () => createProjectForm();
+// form[1].onclick = () => createTaskForm();
+
 
 //project form
 function createProjectForm() {
   let projectFormDiv = document.getElementById("projectForm");
+  projectFormDiv.style.display = 'block'
   projectFormDiv.innerHTML = `
+        <div class="modal-content"> 
         <label for="projectNme">Project Name</label>
         <input id="projectNme" type="text">
         <label for="">Project Description</label>
         <input id="projectDesc" type="text">
         <button id="createProject" class="button">create project</button>
-        <button id="cancelProject">cancel</button>
+        <button id="cancelProject" class="button-cancel">cancel</button>
+        </div>
     `;
   let projectDelBtn = document.getElementById("cancelProject");
   projectDelBtn.onclick = () => {
@@ -32,7 +39,6 @@ function createProjectForm() {
   };
 
   let projectCreateBtn = document.getElementById("createProject");
-
   projectCreateBtn.onclick = createProject;
 }
 
@@ -124,11 +130,13 @@ function displayProjectTask() {
     let taskid = projectTask.id;
 
     singleTask += `<div id="singleTask" class="single-task">
-            <p>${projectTask.title}</p>
-            <p>${projectTask.description}</p>
+        
+            <h4>${projectTask.title}</h4>
             <span>${projectTask.dueDate}</span>
-            <button class="edit-task">edit task</button>
-            <button data-task=${taskid} class="delete-task">delete task </button>
+            <div class="singleTask-btn">
+                <button class="edit-task">edit task</button>
+                <button data-task=${taskid} class="delete-task">delete task </button>
+            </div>
         </div>
         `;
   });
@@ -151,35 +159,40 @@ function deleteProject(projId) {
 
 function cancelProject() {
    let div = document.getElementById("projectForm")
-   div.innerHTML = "";
+   div.style.display = 'none';
 }
-
 
 
 
 //task form
 function createTaskForm(e) {
   const todoForm = document.getElementById("taskForm");
+  todoForm.style.display = 'block';
 
   todoForm.innerHTML = `
-        <input id="todoTitle" type="text">
-        <input id="description" type="text">
-        <input id="date" type="date">
-        <button id="createTaskBtn">add Task</button>
-        <button id="cancelTaskBtn">cancel</button>
+        <div class="form-inputs">
+            <input id="todoTitle" type="text" placeholder="Task title">
+            <input id="date" type="date">
+        </div>
+        <div>
+            <textarea id="description" type="text" placeholder="task description" col></textarea>
+        </div>
+        <div class="form-buttons">
+            <button id="createTaskBtn" class="button">add Task</button>
+            <button id="cancelTaskBtn" class="button-cancel">cancel</button>
+        </div>
     `;
 
   let createTaskBtn = document.getElementById("createTaskBtn");
   let cancelBtn = document.getElementById("cancelTaskBtn");
 
-  createTaskBtn.addEventListener("click", createTask);
+  createTaskBtn.addEventListener("click",createTask);
   cancelBtn.addEventListener("click", cancelTask);
 }
 
 function cancelTask() {
-//   console.log(e.target);
   const todoForm = document.getElementById("taskForm");
-  todoForm.innerHTML = "";
+  todoForm.style.display = 'none'
 }
 
 
@@ -187,7 +200,6 @@ function createTask(taskTitle, taskDescription, taskDueDate, taskPriority) {
   let activeProject = getActiveProject()
 
   let taskId = activeProject.setTaskId();
-//   console.log(taskId);
   taskTitle = document.getElementById("todoTitle").value;
   taskDescription = document.getElementById("description").value;
   taskDueDate = document.getElementById("date").value;
@@ -198,6 +210,8 @@ function createTask(taskTitle, taskDescription, taskDueDate, taskPriority) {
     let newTask = new ToDoItem(taskId, taskTitle, taskDescription, taskDueDate);
     activeProject.addTask(newTask);
     displayProjectTask();
+    const todoForm = document.getElementById("taskForm");
+    todoForm.style.display = 'none'
 
     // console.log("called from by displayed func", newTask);
   }
@@ -219,6 +233,13 @@ function removeTask(event) {
   activeProject.deleteTask(parseInt(taskId));
   displayProjectTask();
   console.log(myProjects);
+}
+
+function closeForm(e) {
+    let form = e.target;
+    console.log(e.target);
+    form.style.display = 'none'
+    
 }
 
 // show all task in a project
