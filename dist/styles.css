@@ -7,6 +7,9 @@ body{
     background-color: #222629;
     /* overflow:hidden; */
 }
+h4{
+    margin: 8px 0;
+}
 nav{
     padding: 0.5rem 1.5rem;
     background-color: #343A40;
@@ -32,9 +35,6 @@ textarea{
     resize: none;
     font-family: 'Mitr', 'Arial Narrow', Arial, sans-serif;
 }
-.singleProjDiv{
-    
-}
 
 .todo-content{
     display: flex;
@@ -48,6 +48,16 @@ textarea{
     color: #E1E8EB;
     height: 100vmax;
 }
+.projectDiv > button{
+    width: 100%;
+}
+.singleProjDiv{
+    display: flex;
+}
+.singleProjDiv > span{
+    flex: 2;
+}
+
 .main-content{
      flex: 4;   
      /* width: 75%; */
@@ -113,8 +123,8 @@ textarea{
 
 .single-task{
     display: grid;
-    grid-template-columns: auto auto auto;
-    /* justify-content: space-around; */
+    grid-template-columns: 5% 60% 15% auto;
+    justify-content: space-around;
     background-color: #686767;
     align-items: baseline;
     padding: 10px;

@@ -14,9 +14,6 @@ const addProjectsBtn = document.getElementById("addProject");
 //button event listeners
 addTaskBtn.addEventListener("click", createTaskForm);
 addProjectsBtn.addEventListener("click", createProjectForm);
-// let form = document.getElementsByClassName('form');
-// form[0].onclick = () => createProjectForm();
-// form[1].onclick = () => createTaskForm();
 
 
 //project form
@@ -130,11 +127,11 @@ function displayProjectTask() {
     let taskid = projectTask.id;
 
     singleTask += `<div id="singleTask" class="single-task">
-        
+            <input type="checkbox">
             <h4>${projectTask.title}</h4>
             <span>${projectTask.dueDate}</span>
             <div class="singleTask-btn">
-                <button class="edit-task">edit task</button>
+                <button class="edit-task">edit</button>
                 <button data-task=${taskid} class="delete-task">delete task </button>
             </div>
         </div>
