@@ -81,7 +81,7 @@ function displayProject() {
     projectDiv.innerHTML += `
         <div class="singleProjDiv">
             <span class="projectName">${project.name}</span>
-            <button class="projectDelItem">delete</button>
+            <button class="projectDelItem icon-btns"><i class="fal fa-trash-alt fa-2x"></i></button>
         </div>
         `;
   });
@@ -131,9 +131,10 @@ function displayProjectTask() {
             <h4>${projectTask.title}</h4>
             <span>${projectTask.dueDate}</span>
             <div class="singleTask-btn">
-                <button class="edit-task">edit</button>
-                <button data-task=${taskid} class="delete-task">delete task </button>
+                <button class="edit-task icon-btns"><i class="fal fa-edit fa-2x"></i></button>
+                <button class="delete-task icon-btns"><i data-task=${taskid} class="fal fa-trash-alt fa-2x"></i></button>
             </div>
+            <div class="singletask-desc" style="display:none">${projectTask.description}</div>
         </div>
         `;
   });
@@ -143,8 +144,8 @@ function displayProjectTask() {
 
   let deleteTaskBtn = document.querySelectorAll(".delete-task");
   deleteTaskBtn.forEach((element) => {
-  
-    element.addEventListener("click", removeTask);
+    console.log(element.description);
+    element.addEventListener("click",removeTask);
   });
 }
 
