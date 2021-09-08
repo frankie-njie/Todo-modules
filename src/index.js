@@ -15,11 +15,10 @@ const addProjectsBtn = document.getElementById("addProject");
 addTaskBtn.addEventListener("click", createTaskForm);
 addProjectsBtn.addEventListener("click", createProjectForm);
 
-
 //project form
 function createProjectForm() {
   let projectFormDiv = document.getElementById("projectForm");
-  projectFormDiv.style.display = 'block'
+  projectFormDiv.style.display = "block";
   projectFormDiv.innerHTML = `
         <div class="modal-content"> 
         <label for="projectNme">Project Name</label>
@@ -39,7 +38,6 @@ function createProjectForm() {
   projectCreateBtn.onclick = createProject;
 }
 
-
 function createProject(projName, projDescription) {
   let projId = myProjects.length;
   projName = document.getElementById("projectNme").value;
@@ -57,7 +55,7 @@ function createProject(projName, projDescription) {
     );
     myProjects.push(newProject);
     displayProject();
-    cancelProject()
+    cancelProject();
     newProject.active = true;
     for (let i = 0; i < myProjects.length - 1; i++) {
       myProjects[i].active = false;
@@ -65,19 +63,11 @@ function createProject(projName, projDescription) {
     displayProjectTask();
     console.log(myProjects);
   }
-
 }
-
-// function getActiveProject() {
-//     return myProjects.find((project)=>{
-//         return project.active
-//     })
-// }
 
 function displayProject() {
   projectDiv.innerHTML = "";
   myProjects.forEach((project, i) => {
-    
     projectDiv.innerHTML += `
         <div class="singleProjDiv">
             <span class="projectName">${project.name}</span>
@@ -93,19 +83,19 @@ function displayProject() {
 
   let projectItem = document.querySelectorAll(".projectName");
 
-  projectItem.forEach((item,id) =>
+  projectItem.forEach((item, id) =>
     item.addEventListener("click", (e) => {
-        let currentProject = myProjects[id]
-        console.log(currentProject);
-        currentProject.active = true;
-        for (let i = 0; i < myProjects.length; i++) {
-            if (i !== id) {
-                myProjects[i].active = false;
-            }
+      let currentProject = myProjects[id];
+      console.log(currentProject);
+      currentProject.active = true;
+      for (let i = 0; i < myProjects.length; i++) {
+        if (i !== id) {
+          myProjects[i].active = false;
         }
-        cancelTask()
-        displayProjectTask();
-        console.log(myProjects);
+      }
+      cancelTask();
+      displayProjectTask();
+      console.log(myProjects);
     })
   );
 }
@@ -115,12 +105,11 @@ function displayProjectTask() {
   let currentProject = activeProject.getAllTasks();
   let taskDiv = document.getElementById("taskDiv");
   let taskHead = document.getElementById("main-content").firstElementChild;
-  let taskDesc = document.getElementById('project-desc')
+  let taskDesc = document.getElementById("project-desc");
   taskDiv.innerHTML = "";
 
   taskHead.innerHTML = activeProject.name;
-  taskDesc.innerHTML = activeProject.description
-  
+  taskDesc.innerHTML = activeProject.description;
 
   let singleTask = "";
   currentProject.forEach((projectTask) => {
@@ -142,10 +131,29 @@ function displayProjectTask() {
   taskDiv.innerHTML = "";
   taskDiv.innerHTML += singleTask;
 
+  // let tasks = document.querySelectorAll(".single-task");
+  // tasks.forEach((task, id) => {
+  //   task.onclick = () => {
+  //     console.log("clicked");
+  //     let taskDescription = document.querySelectorAll(".singletask-desc");
+  //     console.log(taskDescription);
+  //     taskDescription.forEach((element) => {
+  //       if (element.innerHTML === "") {
+  //         console.log("empty");
+  //       } else if (element == id && element.innerHTML !== "") {
+  //         console.log(id  );
+  //         element.style.display = "block";
+  //       }
+  //     });
+  //     // if (taskDescription === ""){
+  //     //   console.log("string is empty");
+  //     // }else taskDescription.style.display = "block"
+  //   };
+  // });
+
   let deleteTaskBtn = document.querySelectorAll(".delete-task");
   deleteTaskBtn.forEach((element) => {
-    console.log(element.description);
-    element.addEventListener("click",removeTask);
+    element.addEventListener("click", removeTask);
   });
 }
 
@@ -156,16 +164,14 @@ function deleteProject(projId) {
 }
 
 function cancelProject() {
-   let div = document.getElementById("projectForm")
-   div.style.display = 'none';
+  let div = document.getElementById("projectForm");
+  div.style.display = "none";
 }
-
-
 
 //task form
 function createTaskForm(e) {
   const todoForm = document.getElementById("taskForm");
-  todoForm.style.display = 'block';
+  todoForm.style.display = "block";
 
   todoForm.innerHTML = `
         <div class="form-inputs">
@@ -184,18 +190,17 @@ function createTaskForm(e) {
   let createTaskBtn = document.getElementById("createTaskBtn");
   let cancelBtn = document.getElementById("cancelTaskBtn");
 
-  createTaskBtn.addEventListener("click",createTask);
+  createTaskBtn.addEventListener("click", createTask);
   cancelBtn.addEventListener("click", cancelTask);
 }
 
 function cancelTask() {
   const todoForm = document.getElementById("taskForm");
-  todoForm.style.display = 'none'
+  todoForm.style.display = "none";
 }
 
-
 function createTask(taskTitle, taskDescription, taskDueDate, taskPriority) {
-  let activeProject = getActiveProject()
+  let activeProject = getActiveProject();
 
   let taskId = activeProject.setTaskId();
   taskTitle = document.getElementById("todoTitle").value;
@@ -209,7 +214,7 @@ function createTask(taskTitle, taskDescription, taskDueDate, taskPriority) {
     activeProject.addTask(newTask);
     displayProjectTask();
     const todoForm = document.getElementById("taskForm");
-    todoForm.style.display = 'none'
+    todoForm.style.display = "none";
 
     // console.log("called from by displayed func", newTask);
   }
@@ -221,24 +226,17 @@ function getActiveProject() {
   });
 }
 
-
 function removeTask(event) {
   console.log(event.target);
   let taskId = event.target.dataset.task;
   console.log(taskId);
 
-  let activeProject = getActiveProject()
+  let activeProject = getActiveProject();
   activeProject.deleteTask(parseInt(taskId));
   displayProjectTask();
   console.log(myProjects);
 }
 
-function closeForm(e) {
-    let form = e.target;
-    console.log(e.target);
-    form.style.display = 'none'
-    
-}
 
 // show all task in a project
 // when a project is removed, all the tasks should also be removed
