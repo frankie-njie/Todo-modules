@@ -2,10 +2,8 @@ import ToDoItem from "./modules/ToDoItem";
 import Project from "./modules/Project";
 console.log("hello world!");
 
-// const myTasks = [];
 const myProjects = [];
 
-const allTodoitems = document.getElementById("taskDiv");
 const addTaskBtn = document.getElementById("addTask");
 const projectDiv = document.getElementById("projectList");
 
@@ -115,7 +113,7 @@ function displayProjectTask() {
   currentProject.forEach((projectTask) => {
     let taskid = projectTask.id;
 
-    singleTask += `<div id="singleTask" class="single-task">
+    singleTask += `<div class="single-task">
             <input type="checkbox">
             <h4>${projectTask.title}</h4>
             <span>${projectTask.dueDate}</span>
@@ -131,29 +129,32 @@ function displayProjectTask() {
   taskDiv.innerHTML = "";
   taskDiv.innerHTML += singleTask;
 
-  // let tasks = document.querySelectorAll(".single-task");
-  // tasks.forEach((task, id) => {
-  //   task.onclick = () => {
-  //     console.log("clicked");
-  //     let taskDescription = document.querySelectorAll(".singletask-desc");
-  //     console.log(taskDescription);
-  //     taskDescription.forEach((element) => {
-  //       if (element.innerHTML === "") {
-  //         console.log("empty");
-  //       } else if (element == id && element.innerHTML !== "") {
-  //         console.log(id  );
-  //         element.style.display = "block";
-  //       }
-  //     });
-  //     // if (taskDescription === ""){
-  //     //   console.log("string is empty");
-  //     // }else taskDescription.style.display = "block"
-  //   };
-  // });
+  showTaskDescription();
 
   let deleteTaskBtn = document.querySelectorAll(".delete-task");
   deleteTaskBtn.forEach((element) => {
     element.addEventListener("click", removeTask);
+  });
+}
+
+function showTaskDescription() {
+  let tasks = document.querySelectorAll(".single-task");
+  tasks.forEach((task, id) => {
+    task.setAttribute("id", id);
+    task.onclick = (e) => {
+      console.log(e.target.parentNode);
+
+      if (id == e.target.parentNode.id || id == e.target.id) {
+        console.log("clicked here", id);
+        let description = task.querySelector(".singletask-desc");
+
+        if (description.style.display == "block") {
+          description.style.display = "none";
+        } else if (description.style.display == "none") {
+          description.style.display = "block";
+        }
+      }
+    };
   });
 }
 
@@ -237,6 +238,3 @@ function removeTask(event) {
   console.log(myProjects);
 }
 
-
-// show all task in a project
-// when a project is removed, all the tasks should also be removed
