@@ -12,6 +12,13 @@ const addProjectsBtn = document.getElementById("addProject");
 //button event listeners
 addTaskBtn.addEventListener("click", createTaskForm);
 addProjectsBtn.addEventListener("click", createProjectForm);
+window.addEventListener('load', ()=>{
+  let getAllTask = JSON.parse(localStorage.getItem('myProjects')) || []
+  console.log(getAllTask);
+  // getAllTask.forEach(task => {
+  //   displayProjectTask()
+  // })
+})
 
 //project form
 function createProjectForm() {
@@ -60,6 +67,7 @@ function createProject(projName, projDescription) {
     }
     displayProjectTask();
     console.log(myProjects);
+    // localStorage.setItem('myProjects', JSON.stringify(myProjects));
   }
 }
 
@@ -93,6 +101,7 @@ function displayProject() {
       }
       cancelTask();
       displayProjectTask();
+      localStorage.setItem('myProjects')
       console.log(myProjects);
     })
   );
@@ -216,8 +225,9 @@ function createTask(taskTitle, taskDescription, taskDueDate, taskPriority) {
     displayProjectTask();
     const todoForm = document.getElementById("taskForm");
     todoForm.style.display = "none";
+    // localStorage.setItem("allTask", JSON.stringify(myProjects))
+    // console.log(JSON.parse(localStorage.getItem('allTask')));
 
-    // console.log("called from by displayed func", newTask);
   }
 }
 
@@ -237,4 +247,3 @@ function removeTask(event) {
   displayProjectTask();
   console.log(myProjects);
 }
-
