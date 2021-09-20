@@ -2,7 +2,7 @@ import ToDoItem from "./modules/ToDoItem";
 import Project from "./modules/Project";
 console.log("hello world!");
 
-const myProjects = [];
+let myProjects = [];
 
 const addTaskBtn = document.getElementById("addTask");
 const projectDiv = document.getElementById("projectList");
@@ -13,11 +13,12 @@ const addProjectsBtn = document.getElementById("addProject");
 addTaskBtn.addEventListener("click", createTaskForm);
 addProjectsBtn.addEventListener("click", createProjectForm);
 window.addEventListener('load', ()=>{
-  let getAllTask = JSON.parse(localStorage.getItem('myProjects')) || []
-  console.log(getAllTask);
-  // getAllTask.forEach(task => {
-  //   displayProjectTask()
-  // })
+  let getAllProjects = JSON.parse(localStorage.getItem('myProjects')) || []
+  myProjects = [...getAllProjects]
+  console.log(myProjects);
+  displayProject()
+  setInitialActiveProject()
+
 })
 
 //project form
@@ -67,7 +68,7 @@ function createProject(projName, projDescription) {
     }
     displayProjectTask();
     console.log(myProjects);
-    // localStorage.setItem('myProjects', JSON.stringify(myProjects));
+    localStorage.setItem('myProjects', JSON.stringify(myProjects));
   }
 }
 
@@ -101,15 +102,16 @@ function displayProject() {
       }
       cancelTask();
       displayProjectTask();
-      localStorage.setItem('myProjects')
-      console.log(myProjects);
     })
   );
 }
 
 function displayProjectTask() {
   let activeProject = getActiveProject();
-  let currentProject = activeProject.getAllTasks();
+  console.log(activeProject);
+  // console.log(activeProject.getAllTasks());
+  let currentProject = activeProject.getAllTasks()
+  
   let taskDiv = document.getElementById("taskDiv");
   let taskHead = document.getElementById("main-content").firstElementChild;
   let taskDesc = document.getElementById("project-desc");
@@ -171,6 +173,7 @@ function deleteProject(projId) {
   myProjects.splice(projId, 1);
   displayProject();
   console.log(myProjects);
+  localStorage.setItem('myProjects', JSON.stringify(myProjects));
 }
 
 function cancelProject() {
@@ -225,7 +228,7 @@ function createTask(taskTitle, taskDescription, taskDueDate, taskPriority) {
     displayProjectTask();
     const todoForm = document.getElementById("taskForm");
     todoForm.style.display = "none";
-    // localStorage.setItem("allTask", JSON.stringify(myProjects))
+    localStorage.setItem("myProjects", JSON.stringify(myProjects))
     // console.log(JSON.parse(localStorage.getItem('allTask')));
 
   }
@@ -235,6 +238,13 @@ function getActiveProject() {
   return myProjects.find((project) => {
     return project.active;
   });
+}
+
+function setInitialActiveProject() {
+  myProjects[0].active = true
+  for (let i = 1; i < myProjects.length; i++) {
+    myProjects[i].active = false;
+  }
 }
 
 function removeTask(event) {
@@ -247,3 +257,7 @@ function removeTask(event) {
   displayProjectTask();
   console.log(myProjects);
 }
+
+// deleteProjectFromStorage() {
+  
+// }

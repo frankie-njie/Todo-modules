@@ -5,6 +5,7 @@ body{
     font-family: 'Mitr', 'Arial Narrow', Arial, sans-serif;
     font-size: 16px;
     background-color: #222629;
+    font-weight: 400;
     /* overflow:hidden; */
 }
 h4{
