@@ -1,31 +1,31 @@
-class Project{
-constructor(id, name, description) {
-    this.id = id
+class Project {
+  constructor(id, name, description) {
+    this.id = id;
     this.name = name;
-    this.description  = description
+    this.description = description;
     this.allTasks = [];
-    this.active
-}
-addTask(task){
-    this.allTasks.push(task)
-}
-deleteTask(taskId){
-  this.allTasks = this.allTasks.filter((task) => task.id !== taskId)
+    this.active;
+  }
+  addTask(task) {
+    this.allTasks.push(task);
+  }
+  deleteTask(taskId) {
+    this.allTasks = this.allTasks.filter((task) => task.id !== taskId);
     // this.allTasks.splice(taskId, 1)
-} 
-setTaskId(){
-    return this.allTasks.length
-}
-getAllTasks(){
-    return this.allTasks
-}
-getId(){
-    return this.id
+  }
+  setTaskId() {
+    return this.allTasks.length;
+  }
+  getAllTasks() {
+    return this.allTasks;
+  }
+  getId() {
+    return this.id;
+  }
+
+  getTitle() {
+    return this.name;
+  }
 }
 
-getTitle(){
-    return this.name
-}
-}
- 
 export default Project;

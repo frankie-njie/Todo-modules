@@ -3,6 +3,7 @@ import Project from "./modules/Project";
 console.log("hello world!");
 
 let myProjects = [];
+// let home = [];
 
 const addTaskBtn = document.getElementById("addTask");
 const projectDiv = document.getElementById("projectList");
@@ -12,14 +13,14 @@ const addProjectsBtn = document.getElementById("addProject");
 //button event listeners
 addTaskBtn.addEventListener("click", createTaskForm);
 addProjectsBtn.addEventListener("click", createProjectForm);
-window.addEventListener('load', ()=>{
-  let getAllProjects = JSON.parse(localStorage.getItem('myProjects')) || []
-  myProjects = [...getAllProjects]
+window.addEventListener("load", () => {
+  let getAllProjects = JSON.parse(localStorage.getItem("myProjects")) || [];
+  console.log(getAllProjects);
+  // Object.assign(myProjects, ...getAllProjects)
+  myProjects = [...getAllProjects];
   console.log(myProjects);
-  displayProject()
-  setInitialActiveProject()
-
-})
+  displayProject();
+});
 
 //project form
 function createProjectForm() {
@@ -68,7 +69,7 @@ function createProject(projName, projDescription) {
     }
     displayProjectTask();
     console.log(myProjects);
-    localStorage.setItem('myProjects', JSON.stringify(myProjects));
+    localStorage.setItem("myProjects", JSON.stringify(myProjects));
   }
 }
 
@@ -93,7 +94,7 @@ function displayProject() {
   projectItem.forEach((item, id) =>
     item.addEventListener("click", (e) => {
       let currentProject = myProjects[id];
-      console.log(currentProject);
+      // console.log(currentProject);
       currentProject.active = true;
       for (let i = 0; i < myProjects.length; i++) {
         if (i !== id) {
@@ -108,10 +109,10 @@ function displayProject() {
 
 function displayProjectTask() {
   let activeProject = getActiveProject();
-  console.log(activeProject);
-  // console.log(activeProject.getAllTasks());
-  let currentProject = activeProject.getAllTasks()
-  
+  // console.log(activeProject);
+  let currentProject = activeProject.getAllTasks();
+  // let currentProject = activeProject.allTasks
+
   let taskDiv = document.getElementById("taskDiv");
   let taskHead = document.getElementById("main-content").firstElementChild;
   let taskDesc = document.getElementById("project-desc");
@@ -173,7 +174,7 @@ function deleteProject(projId) {
   myProjects.splice(projId, 1);
   displayProject();
   console.log(myProjects);
-  localStorage.setItem('myProjects', JSON.stringify(myProjects));
+  localStorage.setItem("myProjects", JSON.stringify(myProjects));
 }
 
 function cancelProject() {
@@ -228,9 +229,8 @@ function createTask(taskTitle, taskDescription, taskDueDate, taskPriority) {
     displayProjectTask();
     const todoForm = document.getElementById("taskForm");
     todoForm.style.display = "none";
-    localStorage.setItem("myProjects", JSON.stringify(myProjects))
+    localStorage.setItem("myProjects", JSON.stringify(myProjects));
     // console.log(JSON.parse(localStorage.getItem('allTask')));
-
   }
 }
 
@@ -238,13 +238,6 @@ function getActiveProject() {
   return myProjects.find((project) => {
     return project.active;
   });
-}
-
-function setInitialActiveProject() {
-  myProjects[0].active = true
-  for (let i = 1; i < myProjects.length; i++) {
-    myProjects[i].active = false;
-  }
 }
 
 function removeTask(event) {
@@ -258,6 +251,12 @@ function removeTask(event) {
   console.log(myProjects);
 }
 
-// deleteProjectFromStorage() {
-  
+// function homeTasks(){
+//   let allProjects = myProjects;
+//   allProjects.forEach(project => {
+//     home.push(project.allTasks)
+//     // home = [...project.allTasks]
+//     console.log(home)
+//     })
+//     // displayProjectTask()
 // }
