@@ -3,22 +3,21 @@ import Project from "./modules/Project";
 console.log("hello world!");
 
 let myProjects = [];
-// let home = [];
+let home = [];
 
 const addTaskBtn = document.getElementById("addTask");
 const projectDiv = document.getElementById("projectList");
-
 const addProjectsBtn = document.getElementById("addProject");
 
 //button event listeners
 addTaskBtn.addEventListener("click", createTaskForm);
 addProjectsBtn.addEventListener("click", createProjectForm);
+
 window.addEventListener("load", () => {
   let getAllProjects = JSON.parse(localStorage.getItem("myProjects")) || [];
   console.log(getAllProjects);
   // Object.assign(myProjects, ...getAllProjects)
-  myProjects = [...getAllProjects];
-  console.log(myProjects);
+  myProjects = [...getAllProjects].map(project => new Project(project.id, project.name, project.description, project.allTasks))
   displayProject();
 });
 
@@ -251,12 +250,13 @@ function removeTask(event) {
   console.log(myProjects);
 }
 
-// function homeTasks(){
-//   let allProjects = myProjects;
-//   allProjects.forEach(project => {
-//     home.push(project.allTasks)
-//     // home = [...project.allTasks]
-//     console.log(home)
-//     })
-//     // displayProjectTask()
-// }
+function homeTasks(){
+  console.log(myProjects);
+  // let allProjects = myProjects;
+  // allProjects.forEach(project => {
+  //   home.push(project.allTasks)
+  //   // home = [...project.allTasks]
+  //   console.log(home)
+  //   })
+  //   // displayProjectTask()
+}
